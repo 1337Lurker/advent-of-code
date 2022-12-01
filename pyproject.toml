@@ -4,7 +4,6 @@ version = "0.1.0"
 description = ""
 authors = ["Gray Sanborn <gray@sanborn.pw>"]
 readme = "README.md"
-packages = [{include = "advent_of_code"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
