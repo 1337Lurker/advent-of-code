@@ -1,20 +1,17 @@
 import fileinput
 
-ROCK, PAPER, SCISSORS = "A" , "B" , "C"
+ROCK, PAPER, SCISSORS = "A", "B", "C"
 RESPONSE_LOSE, RESPONSE_DRAW, RESPONSE_WIN = "X", "Y", "Z"
 
-DRAW = { ROCK: ROCK, PAPER: PAPER, SCISSORS: SCISSORS }
-WIN = { ROCK: PAPER, PAPER: SCISSORS, SCISSORS: ROCK }
-LOSE={ ROCK: SCISSORS, PAPER: ROCK, SCISSORS: PAPER }
+DRAW = {ROCK: ROCK, PAPER: PAPER, SCISSORS: SCISSORS}
+WIN = {ROCK: PAPER, PAPER: SCISSORS, SCISSORS: ROCK}
+LOSE = {ROCK: SCISSORS, PAPER: ROCK, SCISSORS: PAPER}
+
+SCORE = {ROCK: 1, PAPER: 2, SCISSORS: 3}
 
 
 def score_response(response):
-    if response == ROCK:
-        return 1
-    elif response == PAPER:
-        return 2
-    else:
-        return 3
+    return SCORE[response]
 
 
 def score_game_round(opponent, response) -> int:
