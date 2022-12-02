@@ -5,12 +5,21 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
+            "name": "Advent of Code",
             "type": "python",
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
             "args": ["${relativeFileDirname}/input.txt"],
+            "justMyCode": true
+        },
+        {
+            "name": "Advent of Code - Test",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": ["${relativeFileDirname}/test.txt"],
             "justMyCode": true
         }
     ]
