@@ -2,7 +2,6 @@ import fileinput
 
 ROCK, PAPER, SCISSORS, LOSE, DRAW, WIN = "A", "B", "C", "X", "Y", "Z"
 SCORE = {ROCK: 1, PAPER: 2, SCISSORS: 3, WIN: 6, LOSE: 0, DRAW: 3}
-
 RESPONSE = {
     WIN: {
         ROCK: SCORE[PAPER] + SCORE[WIN],
