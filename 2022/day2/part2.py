@@ -1,41 +1,46 @@
 import fileinput
 
-OPPONENT_ROCK = "A"
-OPPONENT_PAPER = "B"
-OPPONENT_SCISSORS = "C"
+ROCK = "A"
+PAPER = "B"
+SCISSORS = "C"
 
-RESPONSE_ROCK = "X"
-RESPONSE_PAPER = "Y"
-RESPONSE_SCISSORS = "Z"
+RESPONSE_LOSE = "X"
+RESPONSE_DRAW = "Y"
+RESPONSE_WIN = "Z"
 
 DRAW = {
-    OPPONENT_ROCK: RESPONSE_ROCK,
-    OPPONENT_PAPER: RESPONSE_PAPER,
-    OPPONENT_SCISSORS: RESPONSE_SCISSORS,
+    ROCK: ROCK,
+    PAPER: PAPER,
+    SCISSORS: SCISSORS,
 }
 WIN = {
-    OPPONENT_ROCK: RESPONSE_PAPER,
-    OPPONENT_PAPER: RESPONSE_SCISSORS,
-    OPPONENT_SCISSORS: RESPONSE_ROCK,
+    ROCK: PAPER,
+    PAPER: SCISSORS,
+    SCISSORS: ROCK,
+}
+LOSE={
+    ROCK: SCISSORS,
+    PAPER: ROCK,
+    SCISSORS: PAPER,
 }
 
 
 def score_response(response):
-    if response == RESPONSE_ROCK:
+    if response == ROCK:
         return 1
-    elif response == RESPONSE_PAPER:
+    elif response == PAPER:
         return 2
     else:
         return 3
 
 
 def score_game_round(opponent, response) -> int:
-    if (opponent, response) in DRAW:
-        return score_response(response) + 3
-    elif (opponent, response) in WIN:
-        return score_response(response) + 6
+    if response == RESPONSE_DRAW:
+        return score_response(DRAW[opponent]) + 3
+    elif response == RESPONSE_WIN:
+        return score_response(WIN[opponent]) + 6
     else:
-        return score_response(response)
+        return score_response(LOSE[opponent])
 
 
 def main():
