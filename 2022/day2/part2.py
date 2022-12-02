@@ -22,13 +22,11 @@ OUTCOME_SCORE = {
 
 
 def main():
-    score = 0
-    with fileinput.input() as game_rounds:
-        for game_round in game_rounds:
-            opponent_play, desired_outcome = game_round.strip().split(" ")
-            score += OUTCOME_SCORE[desired_outcome][opponent_play]
+    game_rounds=[]
+    with fileinput.input() as file:
+        game_rounds = [line.strip().split(" ") for line in file]
 
-    return score
+    return sum([OUTCOME_SCORE[desired_outcome][opponent_choice] for opponent_choice, desired_outcome in game_rounds ])
 
 
 if __name__ == "__main__":
