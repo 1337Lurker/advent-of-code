@@ -1,5 +1,6 @@
 import fileinput
 
+
 def main():
     elves = [[]]
     with fileinput.input() as calories:
@@ -12,10 +13,10 @@ def main():
 
     elves_calories.sort()
     elves_calories.reverse()
-    print(elves_calories[0] + elves_calories[1] +elves_calories[2])
+    print(elves_calories[0] + elves_calories[1] + elves_calories[2])
 
     return
 
-if __name__=="__main__":
-    print(main())
 
+if __name__ == "__main__":
+    print(main())
