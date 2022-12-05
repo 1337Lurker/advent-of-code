@@ -8,13 +8,10 @@ def main():
         input_data = [line.rstrip("\n") for line in file]
 
     stack_index = 0
-    # move_index = 0
     for line_index, line in enumerate(input_data):
         if line.startswith(" 1 "):
             stack_index = line_index
-        # if line.startswith("move"):
-        #     move_index = line_index
-        #     break
+            break
 
     number_of_stacks = max(
         [int(stack) for stack in input_data[stack_index].split(" ") if stack]
