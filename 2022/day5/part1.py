@@ -29,15 +29,18 @@ def main():
                 supply_stacks[i].append(stack)
 
     for line in range(move_index, len(input_data)):
-        quantity, source, destination =re.match(r"move (\d+) from (\d+) to (\d+)", input_data[line]).groups()
+        match = re.match(r"move (\d+) from (\d+) to (\d+)", input_data[line])
+        if not match:
+            raise Exception("Something has gone terribly wrong.")
+        quantity, source, destination = match.groups()
         for i in range(int(quantity)):
-            box = supply_stacks[int(source)-1].pop()
-            supply_stacks[int(destination)-1].append(box)
+            box = supply_stacks[int(source) - 1].pop()
+            supply_stacks[int(destination) - 1].append(box)
         pass
 
     top_crates = ""
     for stack in supply_stacks:
-        top_crates+= stack.pop()
+        top_crates += stack.pop()
 
     return top_crates
 
