@@ -10,6 +10,12 @@ class Troop:
     def __init__(self) -> None:
         self.monkeys: list[Monkey] = []
 
+    def common_modulo(self):
+        modulo = 1
+        for monkey in self.monkeys:
+            modulo *= monkey.test_modulo
+        return modulo
+
     def inspect_and_throw_items(self):
         for monkey in self.monkeys:
             while monkey.items:
@@ -19,7 +25,7 @@ class Troop:
     def inspect_and_throw_item(self, monkey_id, item):
         monkey = self.monkeys[monkey_id]
         new_worry_level = monkey.operation(item)
-        new_worry_level = int(new_worry_level / 3)
+        new_worry_level = new_worry_level % self.common_modulo()
 
         monkey.items.remove(item)
         monkey.items_inspected += 1
@@ -59,7 +65,8 @@ class Monkey:
         else:
             raise Exception("Unknown operator.")
 
-        self.test = lambda worry: (worry % int(test)) == 0
+        self.test_modulo = int(test)
+        self.test = lambda worry: (worry % self.test_modulo) == 0
         self.test_true_monkey_id = int(test_true_monkey_id)
         self.test_false_monkey_id = int(test_false_monkey_id)
 
@@ -107,14 +114,16 @@ def main():
         input_data = [line.rstrip("\n") for line in file]
     troop = inventory_monkeys(input_data)
 
-    for round_number in range(20):
+    for round_number in range(10_000):
         troop.inspect_and_throw_items()
-        print(
-            f"After round {round_number+1}, the monkeys are holding items with these worry levels:"
-        )
-        for monkey in troop.monkeys:
-            print(f"Monkey {monkey.id}: {monkey.items}")
-        print()
+        # if round_number in [0, 19] or (round_number + 1) % 1_000 == 0:
+        if (round_number + 1) % 1_000 == 0:
+            print(f"== After round {(round_number+1):,} ==")
+            for monkey in troop.monkeys:
+                print(
+                    f"Monkey {monkey.id} inspected items {monkey.items_inspected:,} times."
+                )
+            print()
 
     monkey_business = [monkey.items_inspected for monkey in troop.monkeys]
     monkey_business.sort()
