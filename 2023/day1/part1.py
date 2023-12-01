@@ -2,15 +2,15 @@ import fileinput
 import re
 
 NUMBERS = [
-    ("one", "o1e"),
-    ("two", "t2o"),
-    ("three", "t3e"),
-    ("four", "f4r"),
-    ("five", "f5e"),
-    ("six", "s6x"),
-    ("seven", "s7n"),
-    ("eight", "e8t"),
-    ("nine", "n9e"),
+    ("one", "1"),
+    ("two", "2"),
+    ("three", "3"),
+    ("four", "4"),
+    ("five", "5"),
+    ("six", "6"),
+    ("seven", "7"),
+    ("eight", "8"),
+    ("nine", "9"),
 ]
 
 
@@ -18,12 +18,20 @@ def main():
     raw_calibrations = [
         re.sub("\n", "", calibration) for calibration in fileinput.input()
     ]
-    cleaned_calibrations = [
-        re.sub("[A-Za-z]", "", replace_string_numbers(calibration))
+
+    calibrations = [
+        replace_string_numbers(
+            "".join(
+                re.findall(
+                    "(?=([1-9]|one|two|three|four|five|six|seven|eight|nine))",
+                    calibration,
+                )
+            )
+        )
         for calibration in raw_calibrations
     ]
 
-    calibrations = [int(cal[0] + cal[-1]) for cal in cleaned_calibrations]
+    calibrations = [int(cal[0] + cal[-1]) for cal in calibrations]
 
     calibration_sum = 0
     for calibration in calibrations:
