@@ -20,25 +20,21 @@ def main():
     ]
 
     calibrations = [
-        replace_string_numbers(
-            "".join(
-                re.findall(
-                    "(?=([1-9]|one|two|three|four|five|six|seven|eight|nine))",
-                    calibration,
-                )
+        calibration_to_int(
+            re.findall(
+                "(?=([1-9]|one|two|three|four|five|six|seven|eight|nine))",
+                calibration,
             )
         )
         for calibration in raw_calibrations
     ]
 
-    calibrations = [int(cal[0] + cal[-1]) for cal in calibrations]
+    print(f"The sum of the calibration values is {sum(calibrations)}.")
+    return sum(calibrations)
 
-    calibration_sum = 0
-    for calibration in calibrations:
-        calibration_sum += calibration
 
-    print(f"The sum of the calibration values is {calibration_sum}.")
-    return calibration_sum
+def calibration_to_int(matches: list) -> int:
+    return int(replace_string_numbers(matches[0] + matches[-1]))
 
 
 def replace_string_numbers(string: str) -> str:
