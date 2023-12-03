@@ -1,5 +1,6 @@
 import fileinput
 import re
+import math
 
 DICE_RED = "red"
 DICE_GREEN = "green"
@@ -22,27 +23,33 @@ def main():
                 game.rounds[index][color] = int(quantity)
         games.append(game)
 
-    valid_games = []
+    game_powers = []
     for game in games:
-        if game.is_valid():
-            valid_games.append(game.number)
+        game_powers.append(game.power())
 
-    return sum(valid_games)
+    return sum(game_powers)
 
 
 class Game:
     def __init__(self, number: str):
         self.number = int(number)
         self.rounds = []
+        self.minimum_dice = {
+            DICE_RED: 0,
+            DICE_GREEN: 0,
+            DICE_BLUE: 0,
+        }
 
-    def is_valid(self) -> bool:
-        dice_count = {"red": 12, "green": 13, "blue": 14}
+    def power(self):
         for game_round in self.rounds:
             for color in DICE_COLORS:
-                if game_round.get(color, 0) > dice_count[color]:
-                    return False
+                if game_round.get(color, 0) > self.minimum_dice[color]:
+                    self.minimum_dice[color] = game_round.get(color, 0)
 
-        return True
+        print(self.minimum_dice)
+        game_power = math.prod(self.minimum_dice.values())
+        print(f"Game {self.number} power: {game_power}")
+        return game_power
 
 
 if __name__ == "__main__":
